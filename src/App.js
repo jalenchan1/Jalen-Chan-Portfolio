@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Github, Linkedin, Mail, Download } from 'lucide-react';
+import './App.css';
+
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -16,10 +18,12 @@ const Portfolio = () => {
       borderRadius: '12px',
       padding: '12px 24px',
       display: 'flex',
-      gap: '32px',
+      gap: window.innerWidth > 768 ? '32px' : '16px',
       alignItems: 'center',
       zIndex: 1000,
-      fontFamily: 'Inter, sans-serif'
+      fontFamily: 'Inter, sans-serif',
+      flexWrap: 'wrap',
+      maxWidth: '90vw'
     }}>
       <div style={{
         color: '#4A90E2',
@@ -63,15 +67,15 @@ const Portfolio = () => {
     }}>
       {/* Profile Image */}
       <div style={{
-        width: '300px',
-        height: '300px',
+        width: window.innerWidth > 768 ? '300px' : '250px',
+        height: window.innerWidth > 768 ? '300px' : '250px',
         borderRadius: '12px',
         overflow: 'hidden',
         marginBottom: '24px',
         border: '2px solid #4A90E2'
       }}>
       <img 
-        src="/picofme.jpg" 
+        src={process.env.PUBLIC_URL + "/picofme.jpg"} 
         alt="Jalen Chan"
         style={{
           width: '100%',
@@ -93,7 +97,7 @@ const Portfolio = () => {
       </p>
 
       <h1 style={{
-        fontSize: '64px',
+        fontSize: window.innerWidth > 768 ? '64px' : '48px', // Smaller on mobile
         fontWeight: 'bold',
         margin: '0 0 16px 0',
         background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
@@ -173,8 +177,9 @@ const Portfolio = () => {
       <div style={{
         display: 'flex',
         gap: '24px',
-        position: 'absolute',
-        bottom: '40px'
+        position: window.innerWidth > 768 ? 'absolute' : 'static',
+        bottom: window.innerWidth > 768 ? '40px' : 'auto',
+        marginTop: window.innerWidth <= 768 ? '40px' : '0'
       }}>
         <a href="https://www.linkedin.com/in/jalenchan1" style={{
           color: '#8892B0',
@@ -210,12 +215,12 @@ const Portfolio = () => {
   const AboutPage = () => (
     <div style={{
       minHeight: '100vh',
-      padding: '120px 40px 40px',
+      padding: window.innerWidth > 768 ? '120px 40px 40px' : '80px 20px 40px',
       maxWidth: '800px',
       margin: '0 auto'
     }}>
       <h2 style={{
-        fontSize: '48px',
+        fontSize: window.innerWidth > 768 ? '48px' : '36px',
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: '40px',
@@ -336,10 +341,10 @@ const Portfolio = () => {
   const ProjectsPage = () => (
     <div style={{
       minHeight: '100vh',
-      padding: '120px 40px 40px'
+      padding: window.innerWidth > 768 ? '120px 40px 40px' : '80px 20px 40px'
     }}>
       <h2 style={{
-        fontSize: '48px',
+        fontSize: window.innerWidth > 768 ? '48px' : '36px',
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: '16px',
@@ -364,13 +369,13 @@ const Portfolio = () => {
         margin: '0 auto'
       }}>
         {/* ByteSize Project */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
-          alignItems: 'center',
-          marginBottom: '100px'
-        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr', // Stack on mobile
+            gap: window.innerWidth > 768 ? '60px' : '30px',
+            alignItems: 'center',
+            marginBottom: '100px'
+          }}>
           <div style={{
             backgroundColor: '#2A2A40',
             borderRadius: '12px',
@@ -476,12 +481,12 @@ const Portfolio = () => {
         </div>
 
         {/* Image Captioning Project */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
-          alignItems: 'center'
-        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
+            gap: window.innerWidth > 768 ? '60px' : '30px',
+            alignItems: 'center'
+          }}>
           <div>
             <div style={{
               color: '#4A90E2',
@@ -608,11 +613,11 @@ const Portfolio = () => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: '120px 40px 40px',
+      padding: '60px 40px 40px',
       textAlign: 'center'
     }}>
       <h2 style={{
-        fontSize: '48px',
+        fontSize: window.innerWidth > 768 ? '48px' : '36px',
         fontWeight: 'bold',
         marginBottom: '16px',
         background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
