@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Jalen-Chan-Portfolio/static/css/main.e6c13ad2.css",
-    "main.js": "/Jalen-Chan-Portfolio/static/js/main.729195d5.js",
+    "main.js": "/Jalen-Chan-Portfolio/static/js/main.9c6763ec.js",
     "static/js/453.438d9e50.chunk.js": "/Jalen-Chan-Portfolio/static/js/453.438d9e50.chunk.js",
     "index.html": "/Jalen-Chan-Portfolio/index.html",
     "main.e6c13ad2.css.map": "/Jalen-Chan-Portfolio/static/css/main.e6c13ad2.css.map",
-    "main.729195d5.js.map": "/Jalen-Chan-Portfolio/static/js/main.729195d5.js.map",
+    "main.9c6763ec.js.map": "/Jalen-Chan-Portfolio/static/js/main.9c6763ec.js.map",
     "453.438d9e50.chunk.js.map": "/Jalen-Chan-Portfolio/static/js/453.438d9e50.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.729195d5.js"
+    "static/js/main.9c6763ec.js"
   ]
 }
