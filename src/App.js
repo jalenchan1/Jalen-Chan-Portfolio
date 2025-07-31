@@ -606,14 +606,13 @@ const Portfolio = () => {
     </div>
   );
 
-  const ContactPage = () => (
+    const ContactPage = () => (
     <div style={{
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
       alignItems: 'center',
-      padding: '60px 40px 40px',
+      padding: window.innerWidth > 768 ? '100px 40px 40px' : '80px 20px 40px',
       textAlign: 'center'
     }}>
       <h2 style={{
