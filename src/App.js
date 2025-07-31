@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Download } from 'lucide-react';
 import './App.css';
 
-
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const Navigation = () => (
     <nav style={{
@@ -18,7 +29,7 @@ const Portfolio = () => {
       borderRadius: '12px',
       padding: '12px 24px',
       display: 'flex',
-      gap: window.innerWidth > 768 ? '32px' : '16px',
+      gap: isMobile ? '16px' : '32px',
       alignItems: 'center',
       zIndex: 1000,
       fontFamily: 'Inter, sans-serif',
@@ -67,8 +78,8 @@ const Portfolio = () => {
     }}>
       {/* Profile Image */}
       <div style={{
-        width: window.innerWidth > 768 ? '300px' : '250px',
-        height: window.innerWidth > 768 ? '300px' : '250px',
+        width: isMobile ? '250px' : '300px',
+        height: isMobile ? '250px' : '300px',
         borderRadius: '12px',
         overflow: 'hidden',
         marginBottom: '24px',
@@ -97,7 +108,7 @@ const Portfolio = () => {
       </p>
 
       <h1 style={{
-        fontSize: window.innerWidth > 768 ? '64px' : '48px', // Smaller on mobile
+        fontSize: isMobile ? '48px' : '64px',
         fontWeight: 'bold',
         margin: '0 0 16px 0',
         background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
@@ -177,9 +188,9 @@ const Portfolio = () => {
       <div style={{
         display: 'flex',
         gap: '24px',
-        position: window.innerWidth > 768 ? 'absolute' : 'static',
-        bottom: window.innerWidth > 768 ? '40px' : 'auto',
-        marginTop: window.innerWidth <= 768 ? '40px' : '0'
+        position: isMobile ? 'static' : 'absolute',
+        bottom: isMobile ? 'auto' : '40px',
+        marginTop: isMobile ? '40px' : '0'
       }}>
         <a href="https://www.linkedin.com/in/jalenchan1" style={{
           color: '#8892B0',
@@ -215,12 +226,12 @@ const Portfolio = () => {
   const AboutPage = () => (
     <div style={{
       minHeight: '100vh',
-      padding: window.innerWidth > 768 ? '120px 40px 40px' : '80px 20px 40px',
+      padding: isMobile ? '80px 20px 40px' : '120px 40px 40px',
       maxWidth: '800px',
       margin: '0 auto'
     }}>
       <h2 style={{
-        fontSize: window.innerWidth > 768 ? '48px' : '36px',
+        fontSize: isMobile ? '36px' : '48px',
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: '40px',
@@ -341,10 +352,10 @@ const Portfolio = () => {
   const ProjectsPage = () => (
     <div style={{
       minHeight: '100vh',
-      padding: window.innerWidth > 768 ? '120px 40px 40px' : '80px 20px 40px'
+      padding: isMobile ? '80px 20px 40px' : '120px 40px 40px'
     }}>
       <h2 style={{
-        fontSize: window.innerWidth > 768 ? '48px' : '36px',
+        fontSize: isMobile ? '36px' : '48px',
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: '16px',
@@ -371,8 +382,8 @@ const Portfolio = () => {
         {/* ByteSize Project */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr', // Stack on mobile
-            gap: window.innerWidth > 768 ? '60px' : '30px',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? '30px' : '60px',
             alignItems: 'center',
             marginBottom: '100px'
           }}>
@@ -483,8 +494,8 @@ const Portfolio = () => {
         {/* Image Captioning Project */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
-            gap: window.innerWidth > 768 ? '60px' : '30px',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? '30px' : '60px',
             alignItems: 'center'
           }}>
           <div>
@@ -612,11 +623,11 @@ const Portfolio = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: window.innerWidth > 768 ? '100px 40px 40px' : '80px 20px 40px',
+      padding: isMobile ? '80px 20px 40px' : '100px 40px 40px',
       textAlign: 'center'
     }}>
       <h2 style={{
-        fontSize: window.innerWidth > 768 ? '48px' : '36px',
+        fontSize: isMobile ? '36px' : '48px',
         fontWeight: 'bold',
         marginBottom: '16px',
         background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
