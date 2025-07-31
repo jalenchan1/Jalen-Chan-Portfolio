@@ -11,9 +11,13 @@ const Portfolio = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
+    // Check initial screen size
     checkScreenSize();
+    
+    // Add event listener
     window.addEventListener('resize', checkScreenSize);
     
+    // Cleanup
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
@@ -76,7 +80,6 @@ const Portfolio = () => {
       padding: '80px 20px 20px',
       position: 'relative'
     }}>
-      {/* Profile Image */}
       <div style={{
         width: isMobile ? '250px' : '300px',
         height: isMobile ? '250px' : '300px',
@@ -85,18 +88,18 @@ const Portfolio = () => {
         marginBottom: '24px',
         border: '2px solid #4A90E2'
       }}>
-      <img 
-        src={process.env.PUBLIC_URL + "/picofme.jpg"} 
-        alt="Jalen Chan"
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center top',
-          imageRendering: 'high-quality',
-          filter: 'contrast(1.05) brightness(1.02)'
-        }}
-      />
+        <img 
+          src={process.env.PUBLIC_URL + "/picofme.jpg"} 
+          alt="Jalen Chan"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            imageRendering: 'high-quality',
+            filter: 'contrast(1.05) brightness(1.02)'
+          }}
+        />
       </div>
 
       <p style={{
@@ -158,33 +161,32 @@ const Portfolio = () => {
         <button 
           onClick={() => window.open('https://github.com/jalenchan1/Jalen_Chan_Resume/raw/main/Jalen_Chan_Resume_27.pdf', '_blank')}
           style={{
-          background: 'transparent',
-          color: '#4A90E2',
-          border: '2px solid #4A90E2',
-          borderRadius: '8px',
-          padding: '12px 24px',
-          fontSize: '16px',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          transition: 'all 0.2s ease'
-        }}
-        onMouseOver={(e) => {
-          e.target.style.backgroundColor = '#4A90E2';
-          e.target.style.color = 'white';
-        }}
-        onMouseOut={(e) => {
-          e.target.style.backgroundColor = 'transparent';
-          e.target.style.color = '#4A90E2';
-        }}
+            background: 'transparent',
+            color: '#4A90E2',
+            border: '2px solid #4A90E2',
+            borderRadius: '8px',
+            padding: '12px 24px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseOver={(e) => {
+            e.target.style.backgroundColor = '#4A90E2';
+            e.target.style.color = 'white';
+          }}
+          onMouseOut={(e) => {
+            e.target.style.backgroundColor = 'transparent';
+            e.target.style.color = '#4A90E2';
+          }}
         >
           <Download size={16} />
           Download Resume
         </button>
       </div>
 
-      {/* Social Links */}
       <div style={{
         display: 'flex',
         gap: '24px',
@@ -379,14 +381,13 @@ const Portfolio = () => {
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
-        {/* ByteSize Project */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-            gap: isMobile ? '30px' : '60px',
-            alignItems: 'center',
-            marginBottom: '100px'
-          }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '30px' : '60px',
+          alignItems: 'center',
+          marginBottom: '100px'
+        }}>
           <div style={{
             backgroundColor: '#2A2A40',
             borderRadius: '12px',
@@ -471,19 +472,19 @@ const Portfolio = () => {
                 View Live
               </button>
               <button 
-              onClick={() => window.open('https://github.com/jalenchan1/ByteSize', '_blank')}
-              style={{
-                background: 'transparent',
-                color: '#4A90E2',
-                border: '1px solid #4A90E2',
-                borderRadius: '8px',
-                padding: '10px 20px',
-                fontSize: '14px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
+                onClick={() => window.open('https://github.com/jalenchan1/ByteSize', '_blank')}
+                style={{
+                  background: 'transparent',
+                  color: '#4A90E2',
+                  border: '1px solid #4A90E2',
+                  borderRadius: '8px',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
                 <Github size={16} />
                 GitHub
               </button>
@@ -491,13 +492,12 @@ const Portfolio = () => {
           </div>
         </div>
 
-        {/* Image Captioning Project */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-            gap: isMobile ? '30px' : '60px',
-            alignItems: 'center'
-          }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '30px' : '60px',
+          alignItems: 'center'
+        }}>
           <div>
             <div style={{
               color: '#4A90E2',
@@ -544,31 +544,31 @@ const Portfolio = () => {
             </div>
             <div style={{ display: 'flex', gap: '16px' }}>
               <button 
-              style={{
-                background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                padding: '10px 20px',
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}>
+                style={{
+                  background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}>
                 View Live
               </button>
               <button 
-              onClick={() => window.open('https://github.com/jalenchan1/Image_Captioning', '_blank')}
-              style={{
-                background: 'transparent',
-                color: '#4A90E2',
-                border: '1px solid #4A90E2',
-                borderRadius: '8px',
-                padding: '10px 20px',
-                fontSize: '14px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
+                onClick={() => window.open('https://github.com/jalenchan1/Image_Captioning', '_blank')}
+                style={{
+                  background: 'transparent',
+                  color: '#4A90E2',
+                  border: '1px solid #4A90E2',
+                  borderRadius: '8px',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
                 <Github size={16} />
                 GitHub
               </button>
@@ -617,7 +617,7 @@ const Portfolio = () => {
     </div>
   );
 
-    const ContactPage = () => (
+  const ContactPage = () => (
     <div style={{
       minHeight: '100vh',
       display: 'flex',
@@ -646,66 +646,65 @@ const Portfolio = () => {
         Feel Free To Reach Out!
       </p>
 
-    <div style={{
-      display: 'flex',
-      gap: '40px',
-      marginBottom: '60px',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
-    }}>
       <div style={{
-        backgroundColor: '#2A2A40',
-        borderRadius: '12px',
-        padding: '24px',
-        border: '1px solid #4A90E2',
-        cursor: 'pointer',
-        transition: 'transform 0.2s ease',
-        minWidth: '120px'
-      }}
-      onClick={() => window.open('mailto:jalen.chan@gmail.com')}
-      onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-      onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-      >
-        <Mail size={32} style={{ color: '#4A90E2', marginBottom: '12px' }} />
-        <div style={{ color: '#CCD6F6', fontSize: '14px' }}>Email</div>
-      </div>
+        display: 'flex',
+        gap: '40px',
+        marginBottom: '60px',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          backgroundColor: '#2A2A40',
+          borderRadius: '12px',
+          padding: '24px',
+          border: '1px solid #4A90E2',
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease',
+          minWidth: '120px'
+        }}
+        onClick={() => window.open('mailto:jalen.chan@gmail.com')}
+        onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+        onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+        >
+          <Mail size={32} style={{ color: '#4A90E2', marginBottom: '12px' }} />
+          <div style={{ color: '#CCD6F6', fontSize: '14px' }}>Email</div>
+        </div>
 
-      <div style={{
-        backgroundColor: '#2A2A40',
-        borderRadius: '12px',
-        padding: '24px',
-        border: '1px solid #4A90E2',
-        cursor: 'pointer',
-        transition: 'transform 0.2s ease',
-        minWidth: '120px'
-      }}
-      onClick={() => window.open('https://www.linkedin.com/in/jalenchan1', '_blank')}
-      onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-      onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-      >
-        <Linkedin size={32} style={{ color: '#4A90E2', marginBottom: '12px' }} />
-        <div style={{ color: '#CCD6F6', fontSize: '14px' }}>LinkedIn</div>
+        <div style={{
+          backgroundColor: '#2A2A40',
+          borderRadius: '12px',
+          padding: '24px',
+          border: '1px solid #4A90E2',
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease',
+          minWidth: '120px'
+        }}
+        onClick={() => window.open('https://www.linkedin.com/in/jalenchan1', '_blank')}
+        onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+        onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+        >
+          <Linkedin size={32} style={{ color: '#4A90E2', marginBottom: '12px' }} />
+          <div style={{ color: '#CCD6F6', fontSize: '14px' }}>LinkedIn</div>
+        </div>
       </div>
-    </div>
 
       <button 
         onClick={() => window.open('https://github.com/jalenchan1/Jalen_Chan_Resume/raw/main/Jalen_Chan_Resume_27.pdf', '_blank')}
-
         style={{
-        background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
-        color: 'white',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '16px 32px',
-        fontSize: '16px',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        transition: 'transform 0.2s ease'
-      }}
-      onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
-      onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
+          background: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)',
+          color: 'white',
+          border: 'none',
+          borderRadius: '8px',
+          padding: '16px 32px',
+          fontSize: '16px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          transition: 'transform 0.2s ease'
+        }}
+        onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+        onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
       >
         <Download size={20} />
         Download My Resume
@@ -731,7 +730,6 @@ const Portfolio = () => {
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
       position: 'relative'
     }}>
-      {/* Background Pattern */}
       <div style={{
         position: 'fixed',
         top: 0,
