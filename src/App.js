@@ -1,24 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, Download } from 'lucide-react';
 import './App.css';
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobile, setIsMobile] = useState(false);
+  const vantaRef = useRef(null);
+  const vantaEffect = useRef(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
-    // Check initial screen size
     checkScreenSize();
     
-    // Add event listener
     window.addEventListener('resize', checkScreenSize);
     
-    // Cleanup
     return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    const loadVanta = async () => {
+      if (!window.VANTA) {
+        const threeScript = document.createElement('script');
+        threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        document.head.appendChild(threeScript);
+
+        await new Promise((resolve) => {
+          threeScript.onload = resolve;
+        });
+
+        const vantaScript = document.createElement('script');
+        vantaScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js';
+        document.head.appendChild(vantaScript);
+
+        await new Promise((resolve) => {
+          vantaScript.onload = resolve;
+        });
+      }
+
+
+      if (window.VANTA && vantaRef.current && !vantaEffect.current) {
+        vantaEffect.current = window.VANTA.NET({
+          el: vantaRef.current,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x4A90E2,
+          backgroundColor: 0x0F1419,
+          points: 10.00,
+          maxDistance: 20.00,
+          spacing: 15.00
+        });
+      }
+    };
+
+    loadVanta();
+
+    return () => {
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+        vantaEffect.current = null;
+      }
+    };
   }, []);
 
   const Navigation = () => (
@@ -31,19 +80,21 @@ const Portfolio = () => {
       backdropFilter: 'blur(10px)',
       border: '1px solid #4A90E2',
       borderRadius: '12px',
-      padding: '12px 24px',
+      padding: isMobile ? '8px 16px' : '12px 24px',
       display: 'flex',
-      gap: isMobile ? '16px' : '32px',
+      gap: isMobile ? '12px' : '32px',
       alignItems: 'center',
       zIndex: 1000,
       fontFamily: 'Inter, sans-serif',
-      flexWrap: 'wrap',
-      maxWidth: '90vw'
+      flexWrap: 'nowrap',
+      maxWidth: '90vw',
+      whiteSpace: 'nowrap'
     }}>
       <div style={{
         color: '#4A90E2',
         fontWeight: 'bold',
-        fontSize: '18px'
+        fontSize: isMobile ? '16px' : '18px',
+        flexShrink: 0
       }}>
         JC
       </div>
@@ -56,9 +107,12 @@ const Portfolio = () => {
             border: 'none',
             color: activeSection === item.toLowerCase() ? '#4A90E2' : '#8892B0',
             cursor: 'pointer',
-            fontSize: '14px',
+            fontSize: isMobile ? '12px' : '14px',
             textDecoration: activeSection === item.toLowerCase() ? 'underline' : 'none',
-            transition: 'color 0.3s ease'
+            transition: 'color 0.3s ease',
+            padding: '0',
+            flexShrink: 0,
+            whiteSpace: 'nowrap'
           }}
           onMouseOver={(e) => e.target.style.color = '#4A90E2'}
           onMouseOut={(e) => e.target.style.color = activeSection === item.toLowerCase() ? '#4A90E2' : '#8892B0'}
@@ -77,7 +131,7 @@ const Portfolio = () => {
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
-      padding: '80px 20px 20px',
+      padding: '80px 20px 100px',
       position: 'relative'
     }}>
       <div style={{
@@ -287,12 +341,13 @@ const Portfolio = () => {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {['Python', 'SQL', 'HTML/CSS', 'TypeScript', 'JavaScript', 'Java'].map(skill => (
               <span key={skill} style={{
-                backgroundColor: '#2A2A40',
+                backgroundColor: 'rgba(42, 42, 64, 0.8)',
                 color: '#CCD6F6',
                 padding: '6px 12px',
                 borderRadius: '16px',
                 fontSize: '12px',
-                border: '1px solid #4A90E2'
+                border: '1px solid #4A90E2',
+                backdropFilter: 'blur(10px)'
               }}>
                 {skill}
               </span>
@@ -311,12 +366,13 @@ const Portfolio = () => {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {['Power BI', 'Git', 'Jupyter', 'PyCharm', 'GitHub', 'PostgreSQL', 'Databeam', 'Excel', 'React'].map(skill => (
               <span key={skill} style={{
-                backgroundColor: '#2A2A40',
+                backgroundColor: 'rgba(42, 42, 64, 0.8)',
                 color: '#CCD6F6',
                 padding: '6px 12px',
                 borderRadius: '16px',
                 fontSize: '12px',
-                border: '1px solid #4A90E2'
+                border: '1px solid #4A90E2',
+                backdropFilter: 'blur(10px)'
               }}>
                 {skill}
               </span>
@@ -335,12 +391,13 @@ const Portfolio = () => {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {['Pandas', 'TensorFlow', 'Matplotlib', 'Plotly', 'Scikit-learn', 'Seaborn', 'NumPy', 'Keras'].map(skill => (
               <span key={skill} style={{
-                backgroundColor: '#2A2A40',
+                backgroundColor: 'rgba(42, 42, 64, 0.8)',
                 color: '#CCD6F6',
                 padding: '6px 12px',
                 borderRadius: '16px',
                 fontSize: '12px',
-                border: '1px solid #4A90E2'
+                border: '1px solid #4A90E2',
+                backdropFilter: 'blur(10px)'
               }}>
                 {skill}
               </span>
@@ -389,14 +446,15 @@ const Portfolio = () => {
           marginBottom: '100px'
         }}>
           <div style={{
-            backgroundColor: '#2A2A40',
+            backgroundColor: 'rgba(42, 42, 64, 0.8)',
             borderRadius: '12px',
             padding: '20px',
             height: '300px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            border: '1px solid #4A90E2'
+            border: '1px solid #4A90E2',
+            backdropFilter: 'blur(10px)'
           }}>
             <div style={{
               display: 'flex',
@@ -448,12 +506,13 @@ const Portfolio = () => {
             }}>
               {['Expo', 'React Native', 'Node.js', 'PostgreSQL', 'Supabase'].map(tech => (
                 <span key={tech} style={{
-                  backgroundColor: '#2A2A40',
+                  backgroundColor: 'rgba(42, 42, 64, 0.8)',
                   color: '#CCD6F6',
                   padding: '6px 12px',
                   borderRadius: '16px',
                   fontSize: '12px',
-                  border: '1px solid #4A90E2'
+                  border: '1px solid #4A90E2',
+                  backdropFilter: 'blur(10px)'
                 }}>
                   {tech}
                 </span>
@@ -474,7 +533,7 @@ const Portfolio = () => {
               <button 
                 onClick={() => window.open('https://github.com/jalenchan1/ByteSize', '_blank')}
                 style={{
-                  background: 'transparent',
+                  background: 'rgba(74, 144, 226, 0.1)',
                   color: '#4A90E2',
                   border: '1px solid #4A90E2',
                   borderRadius: '8px',
@@ -483,7 +542,8 @@ const Portfolio = () => {
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  backdropFilter: 'blur(10px)'
                 }}>
                 <Github size={16} />
                 GitHub
@@ -531,12 +591,13 @@ const Portfolio = () => {
             }}>
               {['TensorFlow', 'Keras', 'Python', 'PyTorch', 'React', 'FastAPI', 'BLIP'].map(tech => (
                 <span key={tech} style={{
-                  backgroundColor: '#2A2A40',
+                  backgroundColor: 'rgba(42, 42, 64, 0.8)',
                   color: '#CCD6F6',
                   padding: '6px 12px',
                   borderRadius: '16px',
                   fontSize: '12px',
-                  border: '1px solid #4A90E2'
+                  border: '1px solid #4A90E2',
+                  backdropFilter: 'blur(10px)'
                 }}>
                   {tech}
                 </span>
@@ -558,7 +619,7 @@ const Portfolio = () => {
               <button 
                 onClick={() => window.open('https://github.com/jalenchan1/Image_Captioning', '_blank')}
                 style={{
-                  background: 'transparent',
+                  background: 'rgba(74, 144, 226, 0.1)',
                   color: '#4A90E2',
                   border: '1px solid #4A90E2',
                   borderRadius: '8px',
@@ -567,7 +628,8 @@ const Portfolio = () => {
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  backdropFilter: 'blur(10px)'
                 }}>
                 <Github size={16} />
                 GitHub
@@ -576,14 +638,15 @@ const Portfolio = () => {
           </div>
 
           <div style={{
-            backgroundColor: '#2A2A40',
+            backgroundColor: 'rgba(42, 42, 64, 0.8)',
             borderRadius: '12px',
             padding: '40px',
             height: '300px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            border: '1px solid #4A90E2'
+            border: '1px solid #4A90E2',
+            backdropFilter: 'blur(10px)'
           }}>
             <div style={{
               display: 'flex',
@@ -654,13 +717,14 @@ const Portfolio = () => {
         justifyContent: 'center'
       }}>
         <div style={{
-          backgroundColor: '#2A2A40',
+          backgroundColor: 'rgba(42, 42, 64, 0.8)',
           borderRadius: '12px',
           padding: '24px',
           border: '1px solid #4A90E2',
           cursor: 'pointer',
           transition: 'transform 0.2s ease',
-          minWidth: '120px'
+          minWidth: '120px',
+          backdropFilter: 'blur(10px)'
         }}
         onClick={() => window.open('mailto:jalen.chan@gmail.com')}
         onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
@@ -671,13 +735,14 @@ const Portfolio = () => {
         </div>
 
         <div style={{
-          backgroundColor: '#2A2A40',
+          backgroundColor: 'rgba(42, 42, 64, 0.8)',
           borderRadius: '12px',
           padding: '24px',
           border: '1px solid #4A90E2',
           cursor: 'pointer',
           transition: 'transform 0.2s ease',
-          minWidth: '120px'
+          minWidth: '120px',
+          backdropFilter: 'blur(10px)'
         }}
         onClick={() => window.open('https://www.linkedin.com/in/jalenchan1', '_blank')}
         onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
@@ -730,19 +795,18 @@ const Portfolio = () => {
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
       position: 'relative'
     }}>
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundImage: `
-          radial-gradient(circle at 25% 25%, rgba(74, 144, 226, 0.1) 0%, transparent 25%),
-          radial-gradient(circle at 75% 75%, rgba(102, 126, 234, 0.1) 0%, transparent 25%)
-        `,
-        pointerEvents: 'none',
-        zIndex: 0
-      }} />
+      {/* Vanta.js background container */}
+      <div 
+        ref={vantaRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0
+        }} 
+      />
       
       <Navigation />
       
