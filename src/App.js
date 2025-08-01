@@ -21,52 +21,108 @@ const Portfolio = () => {
   }, []);
 
   useEffect(() => {
-    const loadVanta = async () => {
-      if (!window.VANTA) {
-        const threeScript = document.createElement('script');
-        threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-        document.head.appendChild(threeScript);
+    const canvas = vantaRef.current;
+    if (!canvas) return;
 
-        await new Promise((resolve) => {
-          threeScript.onload = resolve;
-        });
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let time = 0;
 
-        const vantaScript = document.createElement('script');
-        vantaScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js';
-        document.head.appendChild(vantaScript);
+    const particles = [];
+    const numParticles = 150;
 
-        await new Promise((resolve) => {
-          vantaScript.onload = resolve;
-        });
-      }
+    for (let i = 0; i < numParticles; i++) {
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: Math.random() * 3 + 0.5,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5,
+        opacity: Math.random() * 0.8 + 0.2,
+        color: Math.random() > 0.7 ? '#4A90E2' : '#667EEA'
+      });
+    }
 
-
-      if (window.VANTA && vantaRef.current && !vantaEffect.current) {
-        vantaEffect.current = window.VANTA.NET({
-          el: vantaRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          color: 0x4A90E2,
-          backgroundColor: 0x0F1419,
-          points: 10.00,
-          maxDistance: 20.00,
-          spacing: 15.00
-        });
-      }
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
-    loadVanta();
+    const drawNebula = () => {
+      const gradient1 = ctx.createRadialGradient(
+        window.innerWidth * 0.3, window.innerHeight * 0.4, 0,
+        window.innerWidth * 0.3, window.innerHeight * 0.4, window.innerWidth * 0.6
+      );
+      gradient1.addColorStop(0, 'rgba(74, 144, 226, 0.15)');
+      gradient1.addColorStop(0.5, 'rgba(102, 126, 234, 0.08)');
+      gradient1.addColorStop(1, 'rgba(74, 144, 226, 0)');
+
+      const gradient2 = ctx.createRadialGradient(
+        window.innerWidth * 0.7, window.innerHeight * 0.6, 0,
+        window.innerWidth * 0.7, window.innerHeight * 0.6, window.innerWidth * 0.5
+      );
+      gradient2.addColorStop(0, 'rgba(118, 75, 162, 0.12)');
+      gradient2.addColorStop(0.5, 'rgba(102, 126, 234, 0.06)');
+      gradient2.addColorStop(1, 'rgba(118, 75, 162, 0)');
+
+      ctx.fillStyle = gradient1;
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      
+      ctx.fillStyle = gradient2;
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    };
+
+    const animate = () => {
+      time += 0.01;
+      
+      ctx.fillStyle = '#0F1419';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      drawNebula();
+
+      particles.forEach((particle, index) => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        if (particle.x < 0) particle.x = window.innerWidth;
+        if (particle.x > window.innerWidth) particle.x = 0;
+        if (particle.y < 0) particle.y = window.innerHeight;
+        if (particle.y > window.innerHeight) particle.y = 0;
+
+        particle.opacity = 0.3 + Math.sin(time * 2 + index * 0.1) * 0.4;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
+        ctx.fill();
+
+        if (particle.size > 2) {
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2);
+          ctx.fillStyle = particle.color + '20';
+          ctx.fill();
+        }
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    resizeCanvas();
+    animate();
+
+    const handleResize = () => {
+      resizeCanvas();
+      particles.forEach(particle => {
+        if (particle.x > window.innerWidth) particle.x = Math.random() * window.innerWidth;
+        if (particle.y > window.innerHeight) particle.y = Math.random() * window.innerHeight;
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      if (vantaEffect.current) {
-        vantaEffect.current.destroy();
-        vantaEffect.current = null;
-      }
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -795,8 +851,7 @@ const Portfolio = () => {
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
       position: 'relative'
     }}>
-      {/* Vanta.js background container */}
-      <div 
+      <canvas 
         ref={vantaRef}
         style={{
           position: 'fixed',
@@ -804,7 +859,9 @@ const Portfolio = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          zIndex: 0
+          zIndex: 0,
+          width: '100%',
+          height: '100%'
         }} 
       />
       
