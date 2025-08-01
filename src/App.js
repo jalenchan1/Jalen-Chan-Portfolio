@@ -420,7 +420,7 @@ const Portfolio = () => {
             Developer Tools
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {['Power BI', 'Git', 'Jupyter', 'PyCharm', 'GitHub', 'PostgreSQL', 'Databeam', 'Excel', 'React'].map(skill => (
+            {['Power BI', 'Git', 'Jupyter', 'FastAPI', 'Node.js', 'PostgreSQL', 'Supabase', 'Excel', 'React'].map(skill => (
               <span key={skill} style={{
                 backgroundColor: 'rgba(42, 42, 64, 0.8)',
                 color: '#CCD6F6',
@@ -445,7 +445,7 @@ const Portfolio = () => {
             Libraries and Frameworks
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {['Pandas', 'TensorFlow', 'Matplotlib', 'Plotly', 'Scikit-learn', 'Seaborn', 'NumPy', 'Keras'].map(skill => (
+            {['Pandas', 'TensorFlow', 'Matplotlib', 'Seaborn', 'Scikit-learn', 'NLTK', 'Tensorflow'].map(skill => (
               <span key={skill} style={{
                 backgroundColor: 'rgba(42, 42, 64, 0.8)',
                 color: '#CCD6F6',
@@ -622,7 +622,7 @@ const Portfolio = () => {
               textTransform: 'uppercase',
               letterSpacing: '1px'
             }}>
-              BOOTCAMP | WORK IN PROGRESS
+              PROJECT | WORK IN PROGRESS
             </div>
             <h3 style={{
               fontSize: '32px',
